@@ -42,19 +42,23 @@ export const getProps = (num_1: number, num_2: number) => {
     const up_percent = (((num_1 - num_2) / num_2) * 100)
     const down_percent = (((num_2 - num_1) / num_1) * 100)
 
-    const text_up = up_percent.toFixed(2).toString() + '%'
-    const text_down = down_percent.toFixed(2).toString() + '%'    
+    let text_up = "+ " + up_percent.toFixed(2).toString() + '%'
+    let text_down = "- " + down_percent.toFixed(2).toString() + '%'
+
+    if (up_percent > 1000) text_up = '> 1K%'
+    if (down_percent > 1000) text_down = '< 1K%'
+
 
     const props = {
         up: {
             icon: <TrendingUpIcon />,
             iconColor: colors.green,
-            badge: (num_1 > 0 && num_2 > 0 && up_percent > 0) ? <Badge type="+" text={"+ " + text_up}/> : undefined
+            badge: (num_1 > 0 && num_2 > 0 && up_percent > 0) ? <Badge type="+" text={text_up}/> : undefined
         }, 
         down: {
             icon: <TrendingDownIcon />,
             iconColor: colors.red,
-            badge: (num_1 > 0 && num_2 > 0 && down_percent > 0) ? <Badge type="-" text={"- " + text_down}/> : undefined
+            badge: (num_1 > 0 && num_2 > 0 && down_percent > 0) ? <Badge type="-" text={text_down}/> : undefined
         },
     }
     
